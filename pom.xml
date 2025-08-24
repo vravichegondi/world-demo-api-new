@@ -21,34 +21,53 @@
 	</properties>
 
 	<build>
-		<plugins>
-
-			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<version>${mule.maven.plugin.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<cloudHubDeployment>
-						<uri>https://anypoint.mulesoft.com</uri>
-						<muleVersion>${deployment.app.runtime}</muleVersion>
-						<username>${anypoint.username}</username>
-						<password>${anypoint.password}</password>
-						<applicationName>${project.artifactId}</applicationName>
-						<environment>${environment}</environment> <!-- Changed from ${env} -->
-						<region>${deployment.region}</region>
-						<workers>${deployment.workers}</workers>
-						<workerType>${deployment.workerType}</workerType>
-						<objectStoreV2>true</objectStoreV2>
-						<properties>
-							<http.port>${http.port}</http.port>
-							<mule.env>${environment}</mule.env> <!-- Changed from ${env} -->
-						</properties>
-					</cloudHubDeployment>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <plugins>
+        <plugin>
+            <groupId>org.mule.tools.maven</groupId>
+            <artifactId>mule-maven-plugin</artifactId>
+            <version>${mule.maven.plugin.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+                <cloudHubDeployment>
+                    <uri>https://anypoint.mulesoft.com</uri>
+                    <muleVersion>${deployment.app.runtime}</muleVersion>
+                    <username>${anypoint.username}</username>
+                    <password>${anypoint.password}</password>
+                    <applicationName>${project.artifactId}</applicationName>
+                    <environment>${environment}</environment>
+                    <region>${deployment.region}</region>
+                    <workers>${deployment.workers}</workers>
+                    <workerType>${deployment.workerType}</workerType>
+                    <objectStoreV2>true</objectStoreV2>
+                    <properties>
+                        <http.port>${http.port}</http.port>
+                        <mule.env>${environment}</mule.env>
+                    </properties>
+                </cloudHubDeployment>
+            </configuration>
+        </plugin>
+        
+        <!-- Add this to skip the Exchange Maven plugin -->
+        <plugin>
+            <groupId>org.mule.tools.maven</groupId>
+            <artifactId>exchange-mule-maven-plugin</artifactId>
+            <version>0.0.23</version>
+            <configuration>
+                <skip>true</skip>
+            </configuration>
+        </plugin>
+        
+        <!-- Also skip the default Maven deploy plugin -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+                <skip>true</skip>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 	<dependencies>
 		<dependency>
