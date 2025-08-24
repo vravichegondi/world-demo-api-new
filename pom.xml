@@ -14,9 +14,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<app.runtime>4.5.1</app.runtime>
 		<mule.maven.plugin.version>4.0.0</mule.maven.plugin.version>
+		<!-- Add this property to skip Exchange deployment -->
+		<exchange.deployment.skip>true</exchange.deployment.skip>
 	</properties>
 
 	<build>
@@ -34,14 +35,14 @@
 						<username>${anypoint.username}</username>
 						<password>${anypoint.password}</password>
 						<applicationName>${project.artifactId}</applicationName>
-						<environment>${env}</environment>
+						<environment>${environment}</environment> <!-- Changed from ${env} -->
 						<region>${deployment.region}</region>
 						<workers>${deployment.workers}</workers>
 						<workerType>${deployment.workerType}</workerType>
 						<objectStoreV2>true</objectStoreV2>
 						<properties>
 							<http.port>${http.port}</http.port>
-							<mule.env>${env}</mule.env>
+							<mule.env>${environment}</mule.env> <!-- Changed from ${env} -->
 						</properties>
 					</cloudHubDeployment>
 				</configuration>
@@ -90,5 +91,11 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
+	<distributionManagement>
+		<repository>
+			<id>exchange-repository</id>
+			<name>Exchange Repository</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v1/organizations/a290013c-23a9-43bb-98eb-72d4c937ba9b/maven</url>
+		</repository>
+	</distributionManagement>
 </project>
