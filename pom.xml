@@ -23,6 +23,8 @@
 		<mule.maven.plugin.version>4.0.0</mule.maven.plugin.version>
 		<!-- Add this property to skip Exchange deployment -->
 		<exchange.deployment.skip>true</exchange.deployment.skip>
+				<cloudhub.target>cloudhub-2.0</cloudhub.target>
+		  <cloudhub.jdk>11</cloudhub.jdk>
 	</properties>
 
 	<build>
